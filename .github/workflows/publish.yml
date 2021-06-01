@@ -1,0 +1,31 @@
+name: Publish html
+on: push
+
+jobs:
+  publish_html:
+    name: Publish html
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of the personal token
+          fetch-depth: 0 # otherwise, will fail to push refs to dest repo
+
+      - name: Checkout submodule
+        run: ./scripts/checkout_submodule.sh
+
+      - name: Generate html
+        uses: docker://pandoc/core:2.14
+        with:
+          entrypoint: /bin/sh
+          args: -c ./scripts/generate_html.sh
+
+      - name: Commit changes
+        run: ./scripts/commit_changes.sh
+
+      - name: Push gh-pages
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          directory: gh-pages
+          branch: gh-pages
