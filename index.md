@@ -13,10 +13,16 @@ $date-meta$
 
 ## Disclaimers
 
-This talk
+### This talk
 
-- ...is opinionated
-- ...has a hidden agenda (wait for it)
+- is opinionated
+- has a hidden agenda (wait for it)
+
+### You need a basic understanding of
+
+- Git
+- Build pipelines
+- (my) Humour
 
 ## What is build metadata
 
@@ -66,17 +72,20 @@ Artifacts could be:
 
 ### For traceability
 
-- Build artifact => Commit SHA
-- Boring
-
-### Keep track of all moving parts
-
-- Commit SHA => Build artifacts
-- Fun, especially with multiple parts
+- Build artifact ➡ Commit SHA
+- 💤 Boring 💤
 
 ::: notes
 Traceability means you can always find the version of code for any artifact/release/installer/installation. In open source, this concept is not that important anymore since distribution of build output is just for convenience
+:::
 
+### Keep track of all moving parts
+
+- Commit SHA ➡ Build artifacts
+- 🎈 Fun! 🎈
+
+::: notes
+It's fun, especially with multiple parts as will see
 :::
 
 ## A system with multiple parts
