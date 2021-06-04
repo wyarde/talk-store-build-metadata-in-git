@@ -6,8 +6,8 @@
 mkdir -p gh-pages
 
 pandoc \
-  presentation.md \
-  --template presentation.md | \
+  index.md \
+  --template index.md | \
 pandoc \
   --standalone \
   --slide-level 3 \
