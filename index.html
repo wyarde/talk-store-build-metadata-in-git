@@ -58,54 +58,64 @@ Artifacts could be:</p>
 <section id="semantic-versioning-2.0.0" class="title-slide slide level2">
 <h2>Semantic Versioning 2.0.0</h2>
 <p><br />
-<span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span>-<span style="color:DodgerBlue">BUILD_METADATA</span></p>
+<span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span>-<span style="color:DodgerBlue">BUILD_METADATA</span><br />
+<sub><sup>https://semver.org</sup></sub></p>
 </section>
 <section id="major.minor.patch" class="slide level3">
 <h3><span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span></h3>
 <ul>
+<li>Describes public API</li>
 <li>Incremented manually</li>
+<li>Relatively static</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>External</li>
 <li>Stored in
 <ul>
 <li>versionInfo.json (old school)</li>
 <li>Git tag</li>
 </ul></li>
 </ul>
+</aside>
 </section>
 <section id="build_metadata" class="slide level3">
 <h3><span style="color:DodgerBlue">BUILD_METADATA</span></h3>
 <ul>
+<li>Links artifacts to commits</li>
 <li>Determined by build system</li>
-<li>Only known after the commit</li>
+<li>Changes all the time</li>
 </ul>
+<aside class="notes">
+<ul>
+<li>Internal</li>
+</ul>
+</aside>
 </section></section>
-<section id="why-store-the-build-id" class="title-slide slide level2">
-<h2>Why store the build ID</h2>
-<ul>
-<li>For traceability (boring)</li>
-<li>Keep track of all moving part</li>
-</ul>
-</section>
-
-<section id="attempt-1-versioninfo.json" class="title-slide slide level2">
-<h2>Attempt 1: versionInfo.json</h2>
-<p>Pro:</p>
-<ul>
-<li>Does not rely on Git</li>
-</ul>
-<p>Con:</p>
-<ul>
-<li>Pollutes Git history</li>
-<li>BUILDMETADATA together with MAJOR.MINOR.PATCH</li>
-</ul>
-</section>
-
-<section id="attempt-2-git-commit" class="title-slide slide level2">
-<h2>Attempt 2: Git commit</h2>
+<section>
+<section id="why-link-artifacts-to-commits" class="title-slide slide level2">
+<h2>Why link artifacts to commits?</h2>
 
 </section>
-
-<section id="attempt-3-git-notes" class="title-slide slide level2">
-<h2>Attempt 3: Git Notes</h2>
+<section id="for-traceability" class="slide level3">
+<h3>For traceability</h3>
+<ul>
+<li>Build artifact =&gt; Commit SHA</li>
+<li>Boring</li>
+</ul>
+</section>
+<section id="keep-track-of-all-moving-parts" class="slide level3">
+<h3>Keep track of all moving parts</h3>
+<ul>
+<li>Commit SHA =&gt; Build artifacts</li>
+<li>Fun, especially with multiple parts</li>
+</ul>
+<aside class="notes">
+<p>Traceability means you can always find the version of code for any artifact/release/installer/installation. In open source, this concept is not that important anymore since distribution of build output is just for convenience</p>
+</aside>
+</section></section>
+<section id="a-system-with-multiple-parts" class="title-slide slide level2">
+<h2>A system with multiple parts</h2>
 
 </section>
     </div>
