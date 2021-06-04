@@ -32,36 +32,51 @@ Artifacts could be:
 ## Semantic Versioning 2.0.0
 
 \
-<span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span>-<span style="color:DodgerBlue">BUILD_METADATA</span>
+<span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span>-<span style="color:DodgerBlue">BUILD_METADATA</span>\
+<sub><sup>https://semver.org</sup></sub>
 
 ### <span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span>
 
+- Describes public API
 - Incremented manually
+- Relatively static
+
+::: notes
+
+- External
 - Stored in
   - versionInfo.json (old school)
   - Git tag
 
+:::
+
 ### <span style="color:DodgerBlue">BUILD_METADATA</span>
 
+- Links artifacts to commits
 - Determined by build system
-- Only known after the commit
+- Changes all the time
 
-## Why store the build ID
+::: notes
 
-- For traceability (boring)
-- Keep track of all moving part
+- Internal
 
-## Attempt 1: versionInfo.json
+:::
 
-Pro:
+## Why link artifacts to commits?
 
-- Does not rely on Git
+### For traceability
 
-Con:
+- Build artifact => Commit SHA
+- Boring
 
-- Pollutes Git history
-- BUILDMETADATA together with MAJOR.MINOR.PATCH
+### Keep track of all moving parts
 
-## Attempt 2: Git commit
+- Commit SHA => Build artifacts
+- Fun, especially with multiple parts
 
-## Attempt 3: Git Notes
+::: notes
+Traceability means you can always find the version of code for any artifact/release/installer/installation. In open source, this concept is not that important anymore since distribution of build output is just for convenience
+
+:::
+
+## A system with multiple parts
