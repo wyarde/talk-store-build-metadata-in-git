@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Wesley Yarde">
-  <meta name="dcterms.date" content="June 1, 2021">
+  <meta name="dcterms.date" content="June 10, 2021">
   <title>How (not) to store build metadata in Git</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -20,40 +20,92 @@
     ul.task-list{list-style: none;}
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="https://wyarde.github.io/reveal.js/dist/theme/dark.css" id="theme">
+  <link rel="stylesheet" href="https://wyarde.github.io/reveal.js/dist/theme/black.css" id="theme">
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
 
-<section id="how-not-to-store-build-metadata-in-git" class="slide level2">
+<section id="how-not-to-store-build-metadata-in-git" class="title-slide slide level2">
 <h2>How (not) to store build metadata in Git</h2>
 <p>Wesley Yarde<br />
-June 1, 2021</p>
+June 10, 2021</p>
 </section>
-<section id="subtitle" class="slide level2">
-<h2>Subtitle</h2>
-<p>def</p>
+
+<section id="disclaimers" class="title-slide slide level2">
+<h2>Disclaimers</h2>
+<p>This talk</p>
+<ul>
+<li>…is opinionated</li>
+<li>…has a hidden agenda (wait for it)</li>
+</ul>
 </section>
-<section id="another-subtitle" class="slide level2">
-<h2>Another subtitle</h2>
-<p>xxx</p>
+
+<section id="what-is-build-metadata" class="title-slide slide level2">
+<h2>What is build metadata</h2>
+<p>Build metadata is fancy for build ID.<br />
+It identies a build and the artifacts it generates.<br />
+<br />
+Artifacts could be:</p>
+<ul>
+<li>containers</li>
+<li>packages</li>
+</ul>
 </section>
+
 <section>
-<section id="another-title" class="title-slide slide level1">
-<h1>Another title</h1>
-
+<section id="semantic-versioning-2.0.0" class="title-slide slide level2">
+<h2>Semantic Versioning 2.0.0</h2>
+<p><br />
+<span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span>-<span style="color:DodgerBlue">BUILD_METADATA</span></p>
 </section>
-<section id="xxx" class="slide level2">
-<h2>xxx</h2>
-<p>Test 1 Test 2</p>
+<section id="major.minor.patch" class="slide level3">
+<h3><span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span></h3>
+<ul>
+<li>Incremented manually</li>
+<li>Stored in
+<ul>
+<li>versionInfo.json (old school)</li>
+<li>Git tag</li>
+</ul></li>
+</ul>
 </section>
-<section class="slide level2">
-
+<section id="build_metadata" class="slide level3">
+<h3><span style="color:DodgerBlue">BUILD_METADATA</span></h3>
+<ul>
+<li>Determined by build system</li>
+<li>Only known after the commit</li>
+</ul>
 </section></section>
-<section id="test-3" class="title-slide slide level1">
-<h1>Test 3</h1>
+<section id="why-store-the-build-id" class="title-slide slide level2">
+<h2>Why store the build ID</h2>
+<ul>
+<li>For traceability (boring)</li>
+<li>Keep track of all moving part</li>
+</ul>
+</section>
+
+<section id="attempt-1-versioninfo.json" class="title-slide slide level2">
+<h2>Attempt 1: versionInfo.json</h2>
+<p>Pro:</p>
+<ul>
+<li>Does not rely on Git</li>
+</ul>
+<p>Con:</p>
+<ul>
+<li>Pollutes Git history</li>
+<li>BUILDMETADATA together with MAJOR.MINOR.PATCH</li>
+</ul>
+</section>
+
+<section id="attempt-2-git-commit" class="title-slide slide level2">
+<h2>Attempt 2: Git commit</h2>
+
+</section>
+
+<section id="attempt-3-git-notes" class="title-slide slide level2">
+<h2>Attempt 3: Git Notes</h2>
 
 </section>
     </div>
