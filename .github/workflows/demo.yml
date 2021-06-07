@@ -6,6 +6,7 @@ on:
 
 jobs:
   changes:
+    name: Determine changes
     runs-on: ubuntu-latest
     outputs:
       build_1: ${{ steps.filter.outputs.build_1 }}
@@ -86,7 +87,8 @@ jobs:
           key: COMPONENT_${{ env.id }}
           value: ${{ github.run_id }}
 
-  show_output:
+  collect_output:
+    name: Collect output
     if: always()
     needs:
       - build_1
