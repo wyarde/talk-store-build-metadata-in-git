@@ -121,7 +121,6 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: latest
           body: |
             Output component 1:
             ${{ steps.component_1.outputs.response }}
