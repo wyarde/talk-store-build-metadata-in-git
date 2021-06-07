@@ -19,7 +19,7 @@ jobs:
       - uses: dorny/paths-filter@v2
         id: filter
         with:
-          #base: ${{ github.ref }}
+          base: ${{ github.ref }}
           filters: |
             build_1:
               - 'components/1/**'
@@ -101,10 +101,28 @@ jobs:
       - uses: actions/checkout@v2
         with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
 
-      - uses: docker://philipssoftware/gino-keva:0.1.6
+      - run: |
+          echo "gino-keva list | awk -F= '{print \"::set-output name=\"\$1\"::\"\$2}'" > entrypoint.sh
+          chmod +x ./entrypoint.sh
+
+      - name: Set component versions in environment
+        uses: docker://philipssoftware/gino-keva:0.1.6
         id: versions
         with:
-          args: gino-keva list | awk -F= '{print \"::set-output name=\"\$1\"::\"\$2}'
+          args: /bin/sh -c ./entrypoint.sh
 
-      - run: docker run --rm ghcr.io/wyarde/demo-gino-keva-1:${{ steps.versions.outputs.COMPONENT_1 }}
-      - run: docker run --rm ghcr.io/wyarde/demo-gino-keva-2:${{ steps.versions.outputs.COMPONENT_2 }}
+      - id: component_1
+        run: docker run --rm ghcr.io/wyarde/demo-gino-keva-1:${{ steps.versions.outputs.COMPONENT_1 }}
+
+      - id: component_2
+        run: docker run --rm ghcr.io/wyarde/demo-gino-keva-2:${{ steps.versions.outputs.COMPONENT_2 }}
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: latest
+          body: |
+            Output component 1: ${{ steps.component_1.outputs.response }}
+            Output component 2: ${{ steps.component_2.outputs.response }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
