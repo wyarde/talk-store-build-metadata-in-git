@@ -1,0 +1,110 @@
+name: Demo
+on:
+  push:
+    branches:
+      - demo
+
+env: { GINO_KEVA_PUSH: 1 } # Auto push changes
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      build_1: ${{ steps.filter.outputs.build_1 }}
+      build_2: ${{ steps.filter.outputs.build_2 }}
+    steps:
+      - uses: actions/checkout@v2
+        with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          #base: ${{ github.ref }}
+          filters: |
+            build_1:
+              - 'components/1/**'
+            build_2:
+              - 'components/2/**'
+
+  build_1:
+    name: Build component 1
+    needs: changes
+    if: ${{ needs.changes.outputs.build_1 == 'true' }}
+    env: { id: 1 }
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: components/${{ env.id }}
+          file: components/Dockerfile
+          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_id }}
+          push: true
+
+      - run: git config user.name github-actions
+      - run: git config user.email github-actions@github.com
+
+      - name: Persist metadata
+        uses: docker://philipssoftware/gino-keva:0.1.6
+        with:
+          args: gino-keva set COMPONENT_${{ env.id }} ${{ github.run_id }}
+
+  build_2:
+    name: Build component 2
+    needs: changes
+    if: ${{ needs.changes.outputs.build_2 == 'true' }}
+    env: { id: 2 }
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: components/${{ env.id }}
+          file: components/Dockerfile
+          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_id }}
+          push: true
+
+      - run: git config user.name github-actions
+      - run: git config user.email github-actions@github.com
+
+      - name: Persist metadata
+        uses: docker://philipssoftware/gino-keva:0.1.6
+        with:
+          args: gino-keva set COMPONENT_${{ env.id }} ${{ github.run_id }}
+
+  show_output:
+    needs:
+      - build_1
+      - build_2
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
+
+      - uses: docker://philipssoftware/gino-keva:0.1.6
+        id: versions
+        with:
+          args: gino-keva list | awk -F= '{print \"::set-output name=\"\$1\"::\"\$2}'
+
+      - run: docker run --rm ghcr.io/wyarde/demo-gino-keva-1:${{ steps.versions.outputs.COMPONENT_1 }}
+      - run: docker run --rm ghcr.io/wyarde/demo-gino-keva-2:${{ steps.versions.outputs.COMPONENT_2 }}
