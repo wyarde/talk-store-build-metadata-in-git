@@ -93,6 +93,7 @@ jobs:
           args: gino-keva set COMPONENT_${{ env.id }} ${{ github.run_id }}
 
   show_output:
+    if: always()
     needs:
       - build_1
       - build_2
