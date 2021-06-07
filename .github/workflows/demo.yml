@@ -103,7 +103,7 @@ jobs:
         with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
 
       - name: Set component versions in environment
-        uses: wyarde/gino-keva-list-action
+        uses: wyarde/gino-keva-list-action@main
         id: versions
 
       - id: component_1
