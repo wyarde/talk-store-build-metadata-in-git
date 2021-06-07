@@ -123,7 +123,10 @@ jobs:
         with:
           tag_name: latest
           body: |
-            Output component 1: ${{ steps.component_1.outputs.response }}
-            Output component 2: ${{ steps.component_2.outputs.response }}
+            Output component 1:
+            ${{ steps.component_1.outputs.response }}
+
+            Output component 2: 
+            ${{ steps.component_2.outputs.response }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
