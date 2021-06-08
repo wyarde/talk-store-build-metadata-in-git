@@ -89,3 +89,5 @@ It's fun, especially with multiple parts as will see
 :::
 
 ## A system with multiple parts
+
+![alt text](images/pipeline.png)
