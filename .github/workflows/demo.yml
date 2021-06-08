@@ -28,7 +28,7 @@ jobs:
               - 'components/3/**'
 
   build_1:
-    name: Build component 1
+    name: Build 1
     needs: changes
     if: ${{ needs.changes.outputs.build_1 == 'true' }}
     env: { id: 1 }
@@ -59,7 +59,7 @@ jobs:
           value: ${{ github.run_number }}
 
   build_2:
-    name: Build component 2
+    name: Build 2
     needs: changes
     if: ${{ needs.changes.outputs.build_2 == 'true' }}
     env: { id: 2 }
@@ -90,7 +90,7 @@ jobs:
           value: ${{ github.run_number }}
 
   build_3:
-    name: Build component 3
+    name: Build 3
     needs: changes
     if: ${{ needs.changes.outputs.build_3 == 'true' }}
     env: { id: 3 }
