@@ -45,7 +45,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: components/${{ env.id }}
-          build-args: VERSION:${{ github.run_number }}
+          build-args: VERSION=${{ github.run_number }}
           tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_number }}
           push: true
 
@@ -76,7 +76,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: components/${{ env.id }}
-          build-args: VERSION:${{ github.run_number }}
+          build-args: VERSION=${{ github.run_number }}
           tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_number }}
           push: true
 
