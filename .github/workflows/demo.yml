@@ -151,7 +151,9 @@ jobs:
           tag_name: ${{ github.run_number }}
           body: |
             ${{ steps.component_1.outputs.response }}
+
             ${{ steps.component_2.outputs.response }}
+
             ${{ steps.component_3.outputs.response }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
