@@ -150,10 +150,13 @@ jobs:
         with:
           tag_name: ${{ github.run_number }}
           body: |
+            Output component 1:
             ${{ steps.component_1.outputs.response }}
 
+            Output component 2:
             ${{ steps.component_2.outputs.response }}
 
+            Output component 3:
             ${{ steps.component_3.outputs.response }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
