@@ -222,7 +222,7 @@ jobs:
         run: docker run --rm ghcr.io/wyarde/demo-gino-keva-5:${{ steps.versions.outputs.COMPONENT_5 }}
 
       - name: Create release
-        uses: softprops/action-gh-release@v0.1.5
+        uses: softprops/action-gh-release@9729932bfb75c05ad1f6e3a729294e05abaa7001 # master (08-Jun-2021). Required for target_commitish to be available.
         with:
           tag_name: ${{ github.run_number }}
           target_commitish: ${{ github.ref }}
