@@ -13,7 +13,6 @@ jobs:
       build_2: ${{ steps.filter.outputs.build_2 }}
     steps:
       - uses: actions/checkout@v2
-        with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
 
       - uses: dorny/paths-filter@v2
         id: filter
@@ -21,9 +20,9 @@ jobs:
           base: ${{ github.ref }}
           filters: |
             build_1:
-              - 'components/1/**'
+              - 'components/Dockerfile', 'components/1/**'
             build_2:
-              - 'components/2/**'
+              - 'components/Dockerfile', 'components/2/**'
 
   build_1:
     name: Build component 1
@@ -47,14 +46,15 @@ jobs:
         with:
           context: components/${{ env.id }}
           file: components/Dockerfile
-          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_id }}
+          build-args: VERSION:${{ github.run_number }}
+          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_number }}
           push: true
 
       - name: Persist metadata
         uses: wyarde/gino-keva-set-action@main
         with:
           key: COMPONENT_${{ env.id }}
-          value: ${{ github.run_id }}
+          value: ${{ github.run_number }}
 
   build_2:
     name: Build component 2
@@ -78,14 +78,15 @@ jobs:
         with:
           context: components/${{ env.id }}
           file: components/Dockerfile
-          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_id }}
+          build-args: VERSION:${{ github.run_number }}
+          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_number }}
           push: true
 
       - name: Persist metadata
         uses: wyarde/gino-keva-set-action@main
         with:
           key: COMPONENT_${{ env.id }}
-          value: ${{ github.run_id }}
+          value: ${{ github.run_number }}
 
   collect_output:
     name: Collect output
@@ -111,7 +112,7 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.run_id }}
+          tag_name: ${{ github.run_number }}
           body: |
             Output component 1:
             ${{ steps.component_1.outputs.response }}

@@ -1,3 +1,5 @@
 FROM alpine:3.13
 COPY response /
-CMD echo ::set-output name=response::$(cat /response)
+ARG VERSION=not_set
+ENV VERSION=${VERSION}
+CMD echo ::set-output name=response::[${VERSION}] $(cat /response)
