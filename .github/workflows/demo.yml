@@ -120,9 +120,9 @@ jobs:
           key: COMPONENT_${{ env.id }}
           value: ${{ github.run_number }}
 
-  collect_output:
-    name: Collect output
-    if: always()
+  release:
+    name: Release
+    if: always() # We don't want this job to require all "needs" to run. It will still wait for them if they do.
     needs:
       - build_1
       - build_2
