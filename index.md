@@ -88,6 +88,25 @@ Traceability means you can always find the version of code for any artifact/rele
 It's fun, especially with multiple parts as will see
 :::
 
-## A system with multiple parts
+## Multiple moving parts
 
-![alt text](images/pipeline.png)
+![](images/pipeline.png)
+
+::: notes
+
+Determine changes:
+
+- Identifies what has changed
+
+Build:
+
+- Each component has an independent build, which can run in parallel
+- Also run tests for each component
+- Output is a docker container
+
+Release:
+
+- Collect all containers
+- Release them
+
+:::
