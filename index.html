@@ -33,15 +33,26 @@
 June 10, 2021</p>
 </section>
 
+<section>
 <section id="disclaimers" class="title-slide slide level2">
 <h2>Disclaimers</h2>
-<p>This talk</p>
+
+</section>
+<section id="this-talk" class="slide level3">
+<h3>This talk</h3>
 <ul>
-<li>…is opinionated</li>
-<li>…has a hidden agenda (wait for it)</li>
+<li>is opinionated</li>
+<li>has a hidden agenda (wait for it)</li>
 </ul>
 </section>
-
+<section id="you-need-a-basic-understanding-of" class="slide level3">
+<h3>You need a basic understanding of</h3>
+<ul>
+<li>Git</li>
+<li>Build pipelines</li>
+<li>(my) Humour</li>
+</ul>
+</section></section>
 <section id="what-is-build-metadata" class="title-slide slide level2">
 <h2>What is build metadata</h2>
 <p>Build metadata is fancy for build ID.<br />
@@ -100,18 +111,21 @@ Artifacts could be:</p>
 <section id="for-traceability" class="slide level3">
 <h3>For traceability</h3>
 <ul>
-<li>Build artifact =&gt; Commit SHA</li>
-<li>Boring</li>
+<li>Build artifact ➡ Commit SHA</li>
+<li>💤 Boring 💤</li>
 </ul>
+<aside class="notes">
+<p>Traceability means you can always find the version of code for any artifact/release/installer/installation. In open source, this concept is not that important anymore since distribution of build output is just for convenience</p>
+</aside>
 </section>
 <section id="keep-track-of-all-moving-parts" class="slide level3">
 <h3>Keep track of all moving parts</h3>
 <ul>
-<li>Commit SHA =&gt; Build artifacts</li>
-<li>Fun, especially with multiple parts</li>
+<li>Commit SHA ➡ Build artifacts</li>
+<li>🎈 Fun! 🎈</li>
 </ul>
 <aside class="notes">
-<p>Traceability means you can always find the version of code for any artifact/release/installer/installation. In open source, this concept is not that important anymore since distribution of build output is just for convenience</p>
+<p>It’s fun, especially with multiple parts as will see</p>
 </aside>
 </section></section>
 <section id="a-system-with-multiple-parts" class="title-slide slide level2">
