@@ -3,7 +3,16 @@
 # Script invokes pandoc to generate html based on the markdown file.
 # It chains pandoc together to enable variable substitution.
 
-mkdir -p gh-pages
+if [ ! -d gh-pages ]; then
+  echo "Fetching files from gh-pages branch..."
+  mkdir -p gh-pages
+  git clone -b gh-pages . gh-pages
+  rm -rf ./gh-pages/.git
+else
+  echo "Folder already exists. Fetch skipped."
+fi
+
+echo "Generating html..."
 
 pandoc \
   index.md \
@@ -15,3 +24,5 @@ pandoc \
   -V revealjs-url=https://wyarde.github.io/reveal.js \
   -V theme=black \
   -o gh-pages/index.html
+
+echo "Done!"
