@@ -12,6 +12,8 @@ jobs:
       build_1: ${{ steps.filter.outputs.build_1 }}
       build_2: ${{ steps.filter.outputs.build_2 }}
       build_3: ${{ steps.filter.outputs.build_3 }}
+      build_4: ${{ steps.filter.outputs.build_4 }}
+      build_5: ${{ steps.filter.outputs.build_5 }}
     steps:
       - uses: actions/checkout@v2
 
@@ -26,6 +28,10 @@ jobs:
               - 'components/2/**'
             build_3:
               - 'components/3/**'
+            build_4:
+              - 'components/4/**'
+            build_5:
+              - 'components/5/**'
 
   build_1:
     name: Build 1
@@ -120,6 +126,68 @@ jobs:
           key: COMPONENT_${{ env.id }}
           value: ${{ github.run_number }}
 
+  build_4:
+    name: Build 4
+    needs: changes
+    if: ${{ needs.changes.outputs.build_4 == 'true' }}
+    env: { id: 4 }
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: components/${{ env.id }}
+          build-args: VERSION=${{ github.run_number }}
+          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_number }}
+          push: true
+
+      - name: Persist metadata
+        uses: wyarde/gino-keva-set-action@main
+        with:
+          key: COMPONENT_${{ env.id }}
+          value: ${{ github.run_number }}
+
+  build_5:
+    name: Build 5
+    needs: changes
+    if: ${{ needs.changes.outputs.build_5 == 'true' }}
+    env: { id: 5 }
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: components/${{ env.id }}
+          build-args: VERSION=${{ github.run_number }}
+          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_number }}
+          push: true
+
+      - name: Persist metadata
+        uses: wyarde/gino-keva-set-action@main
+        with:
+          key: COMPONENT_${{ env.id }}
+          value: ${{ github.run_number }}
+
   release:
     name: Release
     if: always() # We don't want this job to require all "needs" to run. It will still wait for them if they do.
@@ -127,6 +195,8 @@ jobs:
       - build_1
       - build_2
       - build_3
+      - build_4
+      - build_5
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -145,6 +215,12 @@ jobs:
       - id: component_3
         run: docker run --rm ghcr.io/wyarde/demo-gino-keva-3:${{ steps.versions.outputs.COMPONENT_3 }}
 
+      - id: component_4
+        run: docker run --rm ghcr.io/wyarde/demo-gino-keva-4:${{ steps.versions.outputs.COMPONENT_4 }}
+
+      - id: component_5
+        run: docker run --rm ghcr.io/wyarde/demo-gino-keva-5:${{ steps.versions.outputs.COMPONENT_5 }}
+
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
@@ -158,5 +234,11 @@ jobs:
 
             Output component 3:
             ${{ steps.component_3.outputs.response }}
+
+            Output component 4:
+            ${{ steps.component_4.outputs.response }}
+
+            Output component 5:
+            ${{ steps.component_5.outputs.response }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
