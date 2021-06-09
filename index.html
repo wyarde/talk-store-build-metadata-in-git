@@ -42,7 +42,7 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><a href="https://github.com/wyarde">https://github.com/wyarde</a></td>
+<td style="text-align: center;"><a href="https://github.com/wyarde" class="uri">https://github.com/wyarde</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Devops Engineer</td>
@@ -90,54 +90,54 @@ Artifacts could be:</p>
 </ul>
 </section>
 
-<section>
 <section id="semantic-versioning-2.0.0" class="title-slide slide level2">
 <h2>Semantic Versioning 2.0.0</h2>
-<p><br />
-<span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span>-<span style="color:DodgerBlue">BUILD_METADATA</span><br />
-<sub><sup>https://semver.org</sup></sub></p>
-</section>
-<section id="major.minor.patch" class="slide level3">
-<h3><span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span></h3>
+<p><sub><sup>https://semver.org</sup></sub></p>
+<style>
+.container{ display: grid; grid-auto-flow: column; }
+.col{ font-size: 80%; }
+</style>
+<div class="container">
+<div class="col element: fragment" data-fragment-index="1">
+<p><span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span></p>
 <ul>
 <li>Describes public API</li>
 <li>Incremented manually</li>
-<li>Relatively static</li>
+<li>Incremented manually</li>
 </ul>
+</div>
+<div class="col element: fragment" data-fragment-index="2">
+<p><span style="color:DodgerBlue">BUILD_METADATA</span></p>
+<ul>
+<li>Links artifacts to commits</li>
+<li>Determined by the system</li>
+<li>Changes all the time</li>
+</ul>
+</div>
+</div>
 <aside class="notes">
 <ul>
-<li>External</li>
-<li>Stored in
+<li><p>External</p></li>
+<li><p>Stored in</p>
 <ul>
 <li>versionInfo.json (old school)</li>
 <li>Git tag</li>
 </ul></li>
+<li><p>Internal</p></li>
 </ul>
 </aside>
 </section>
-<section id="build_metadata" class="slide level3">
-<h3><span style="color:DodgerBlue">BUILD_METADATA</span></h3>
-<ul>
-<li>Links artifacts to commits</li>
-<li>Determined by build system</li>
-<li>Changes all the time</li>
-</ul>
-<aside class="notes">
-<ul>
-<li>Internal</li>
-</ul>
-</aside>
-</section></section>
+
 <section>
 <section id="why-link-artifacts-to-commits" class="title-slide slide level2">
 <h2>Why link artifacts to commits?</h2>
 <p><br />
-Build artifact ↔︎ Commit SHA</p>
+commit <span style="color:Orange;font-size:125%">⇄</span> artifacts</p>
 </section>
 <section id="for-traceability" class="slide level3">
 <h3>For traceability</h3>
 <ul>
-<li class="fragment">Build artifact ➡ Commit SHA</li>
+<li class="fragment">commit <span style="color:Orange;font-size:125%">⇇</span> artifacts</li>
 <li class="fragment">💤 Boring 💤</li>
 </ul>
 <aside class="notes">
@@ -147,7 +147,7 @@ Build artifact ↔︎ Commit SHA</p>
 <section id="keep-track-of-all-moving-parts" class="slide level3">
 <h3>Keep track of all moving parts</h3>
 <ul>
-<li class="fragment">Commit SHA ➡ Build artifacts</li>
+<li class="fragment">commit <span style="color:Orange;font-size:125%">⇉</span> artifacts</li>
 <li class="fragment">🎈 Fun! 🎈</li>
 </ul>
 <aside class="notes">
@@ -218,32 +218,32 @@ Build artifact ↔︎ Commit SHA</p>
 <li>Stored as commits in refs/notes/</li>
 </ul>
 </section></section>
-<section>
 <section id="how-to-storeretrieve-it" class="title-slide slide level2">
 <h2>2. How to store/retrieve it</h2>
+<p>Gino Keva:</p>
 <ul>
 <li>Store key/values in a note</li>
 <li>List key/values for a commit</li>
 </ul>
 </section>
-<section id="gino-keva" class="slide level3">
-<h3>Gino Keva</h3>
-<div class="element: fragment" data-fragment-index="1">
+
+<section id="demo" class="title-slide slide level2">
+<h2>Demo</h2>
+<p><a href="https://github.com/wyarde/talk-store-build-metadata-in-git/tree/demo"><img data-src="images/pipeline.png" /></a></p>
+</section>
+
+<section id="gino-keva" class="title-slide slide level2">
+<h2>Gino Keva</h2>
 <p>A simple Git Notes Key Value store</p>
+<div class="element: fragment" data-fragment-index="1">
+<p><a href="https://github.com/philips-software/gino-keva" class="uri">https://github.com/philips-software/gino-keva</a></p>
 </div>
 <div class="element: fragment" data-fragment-index="2">
-<p><a href="https://github.com/philips-software/gino-keva">https://github.com/philips-software/gino-keva</a></p>
-</div>
-<div class="element: fragment" data-fragment-index="3">
 <p><img data-src="images/wyarde.jpg" /> <img data-src="images/your_face.jpg" /></p>
 </div>
 <aside class="notes">
 <p>Awesome open-source tool</p>
 </aside>
-</section></section>
-<section id="demo" class="title-slide slide level1">
-<h1>Demo</h1>
-<p><img data-src="images/pipeline.png" /></p>
 </section>
 
 <section id="end" class="title-slide slide level1">
