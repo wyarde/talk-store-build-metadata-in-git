@@ -147,7 +147,7 @@ Release:
 1. Where to store it
 2. How to store/retrieve it
 
-## 1. Where to store it
+### 1. Where to store it
 
 > - In Git
 > - ...but not in commits
@@ -173,7 +173,7 @@ Release:
 - <span style="color:Moccasin">`git notes add|remove|show|list`</span>
 - Stored as commits in refs/notes/
 
-## 2. How to store/retrieve it
+### 2. How to store/retrieve it
 
 Gino Keva:
 
