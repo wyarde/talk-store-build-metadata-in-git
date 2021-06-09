@@ -29,8 +29,32 @@
 
 <section id="how-not-to-store-build-metadata-in-git" class="title-slide slide level2">
 <h2>How (not) to store build metadata in Git</h2>
-<p>Wesley Yarde<br />
-June 10, 2021</p>
+
+</section>
+
+<section id="wesley-yarde" class="title-slide slide level2">
+<h2>Wesley Yarde</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><img data-src="images/wyarde.jpg" style="width:40.0%" /></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a href="https://github.com/wyarde">https://github.com/wyarde</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Devops Engineer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Cardiology Informatics</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><img data-src="images/philips.png" width="50" /></td>
+</tr>
+</tbody>
+</table>
 </section>
 
 <section>
@@ -42,15 +66,16 @@ June 10, 2021</p>
 <h3>This talk</h3>
 <ul>
 <li>is opinionated</li>
-<li>has a hidden agenda (wait for it)</li>
+<li>includes a live demo</li>
 </ul>
 </section>
 <section id="you-need-a-basic-understanding-of" class="slide level3">
 <h3>You need a basic understanding of</h3>
 <ul>
-<li>Git</li>
-<li>Build pipelines</li>
-<li>(my) Humour</li>
+<li class="fragment">Git</li>
+<li class="fragment">Containers</li>
+<li class="fragment">Build pipelines</li>
+<li class="fragment">(my) Humour</li>
 </ul>
 </section></section>
 <section id="what-is-build-metadata" class="title-slide slide level2">
@@ -106,13 +131,14 @@ Artifacts could be:</p>
 <section>
 <section id="why-link-artifacts-to-commits" class="title-slide slide level2">
 <h2>Why link artifacts to commits?</h2>
-
+<p><br />
+Build artifact ↔︎ Commit SHA</p>
 </section>
 <section id="for-traceability" class="slide level3">
 <h3>For traceability</h3>
 <ul>
-<li>Build artifact ➡ Commit SHA</li>
-<li>💤 Boring 💤</li>
+<li class="fragment">Build artifact ➡ Commit SHA</li>
+<li class="fragment">💤 Boring 💤</li>
 </ul>
 <aside class="notes">
 <p>Traceability means you can always find the version of code for any artifact/release/installer/installation. In open source, this concept is not that important anymore since distribution of build output is just for convenience</p>
@@ -121,16 +147,19 @@ Artifacts could be:</p>
 <section id="keep-track-of-all-moving-parts" class="slide level3">
 <h3>Keep track of all moving parts</h3>
 <ul>
-<li>Commit SHA ➡ Build artifacts</li>
-<li>🎈 Fun! 🎈</li>
+<li class="fragment">Commit SHA ➡ Build artifacts</li>
+<li class="fragment">🎈 Fun! 🎈</li>
 </ul>
 <aside class="notes">
 <p>It’s fun, especially with multiple parts as will see</p>
 </aside>
 </section></section>
+<section>
 <section id="multiple-moving-parts" class="title-slide slide level2">
 <h2>Multiple moving parts</h2>
-<p><img data-src="images/pipeline.png" /></p>
+<figure>
+<img data-src="images/pipeline.png" alt="New feature, build 46" /><figcaption aria-hidden="true">New feature, build 46</figcaption>
+</figure>
 <aside class="notes">
 <p>Determine changes:</p>
 <ul>
@@ -148,6 +177,93 @@ Artifacts could be:</p>
 <li>Release them</li>
 </ul>
 </aside>
+</section>
+<section id="git-history" class="slide level3">
+<h3>Git history</h3>
+<p><img data-src="images/git_history.png" /></p>
+</section></section>
+<section id="challenges" class="title-slide slide level2">
+<h2>Challenges</h2>
+<ol type="1">
+<li>Where to store it</li>
+<li>How to store/retrieve it</li>
+</ol>
+</section>
+
+<section>
+<section id="where-to-store-it" class="title-slide slide level2">
+<h2>1. Where to store it</h2>
+<ul>
+<li class="fragment">In Git</li>
+<li class="fragment">…but not in commits</li>
+<li class="fragment">Git tags?</li>
+<li class="fragment">Git notes!</li>
+</ul>
+<p><img data-src="images/git_history.png" style="width:60.0%" /></p>
+<aside class="notes">
+<ul>
+<li>Using versionInfo.json is a very silly idea</li>
+<li>Since one end of the link is a git commit, storing in git makes a lot of sense</li>
+<li>A commit would be horrible; it pollutes the history and doesn’t even work</li>
+<li>Tags have 2 drawbacks: Explosion of tags and doesn’t support concurrent use</li>
+<li>Git notes are perfect!</li>
+</ul>
+</aside>
+</section>
+<section id="git-notes" class="slide level3">
+<h3>Git notes</h3>
+<p><sub><sup><em>Supplement a commit message without changing the commit itself</em></sup></sub></p>
+<ul>
+<li><span style="color:Moccasin"><code>git notes add|remove|show|list</code></span></li>
+<li>Stored as commits in refs/notes/</li>
+</ul>
+</section></section>
+<section>
+<section id="how-to-storeretrieve-it" class="title-slide slide level2">
+<h2>2. How to store/retrieve it</h2>
+<ul>
+<li>Store key/values in a note</li>
+<li>List key/values for a commit</li>
+</ul>
+</section>
+<section id="gino-keva" class="slide level3">
+<h3>Gino Keva</h3>
+<div class="element: fragment" data-fragment-index="1">
+<p>A simple Git Notes Key Value store</p>
+</div>
+<div class="element: fragment" data-fragment-index="2">
+<p><a href="https://github.com/philips-software/gino-keva">https://github.com/philips-software/gino-keva</a></p>
+</div>
+<div class="element: fragment" data-fragment-index="3">
+<p><img data-src="images/wyarde.jpg" /> <img data-src="images/your_face.jpg" /></p>
+</div>
+<aside class="notes">
+<p>Awesome open-source tool</p>
+</aside>
+</section></section>
+<section id="demo" class="title-slide slide level1">
+<h1>Demo</h1>
+<p><img data-src="images/pipeline.png" /></p>
+</section>
+
+<section id="end" class="title-slide slide level1">
+<h1>End</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Gino Keva</th>
+<th style="text-align: center;">Demo</th>
+<th style="text-align: center;">This talk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a href="https://github.com/philips-software/gino-keva"><img data-src="images/qr_gino-keva.png" /></a></td>
+<td style="text-align: center;"><a href="https://github.com/wyarde/talk-store-build-metadata-in-git/tree/demo"><img data-src="images/qr_demo.png" /></a></td>
+<td style="text-align: center;"><a href="https://wyarde.github.io/talk-store-build-metadata-in-git"><img data-src="images/qr_talk.png" /></a></td>
+</tr>
+</tbody>
+</table>
 </section>
     </div>
   </div>
