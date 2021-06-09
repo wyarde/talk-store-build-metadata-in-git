@@ -3,6 +3,9 @@ author-meta:
   - Wesley Yarde
 date-meta: June 10, 2021
 pagetitle: How (not) to store build metadata in Git
+url-gino-keva: https://github.com/philips-software/gino-keva
+url-demo: https://github.com/wyarde/talk-store-build-metadata-in-git/tree/demo
+url-talk: https://wyarde.github.io/talk-store-build-metadata-in-git
 ---
 
 ## $pagetitle$
@@ -162,7 +165,7 @@ A simple Git Notes Key Value store
 :::
 
 :::{.element: class="fragment" data-fragment-index="2"}
-[https://github.com/philips-software/gino-keva](https://github.com/philips-software/gino-keva)
+[github.com/philips-software/gino-keva](https://github.com/philips-software/gino-keva)
 :::
 :::{.element: class="fragment" data-fragment-index="3"}
 ![](images/wyarde.jpg)
@@ -176,3 +179,11 @@ Awesome open-source tool
 :::
 
 # Demo
+
+![](images/pipeline.png)
+
+# End
+
+|                    Gino Keva                    |                 Demo                  |               This talk               |
+| :---------------------------------------------: | :-----------------------------------: | :-----------------------------------: |
+| [![](images/qr_gino-keva.png)]($url-gino-keva$) | [![](images/qr_demo.png)]($url-demo$) | [![](images/qr_talk.png)]($url-talk$) |
