@@ -16,13 +16,14 @@ $date-meta$
 ### This talk
 
 - is opinionated
-- has a hidden agenda (wait for it)
+- includes a live demo
 
 ### You need a basic understanding of
 
-- Git
-- Build pipelines
-- (my) Humour
+> - Git
+> - Containers
+> - Build pipelines
+> - (my) Humour
 
 ## What is build metadata
 
@@ -70,10 +71,13 @@ Artifacts could be:
 
 ## Why link artifacts to commits?
 
+\
+Build artifact ↔ Commit SHA
+
 ### For traceability
 
-- Build artifact ➡ Commit SHA
-- 💤 Boring 💤
+> - Build artifact ➡ Commit SHA
+> - 💤 Boring 💤
 
 ::: notes
 Traceability means you can always find the version of code for any artifact/release/installer/installation. In open source, this concept is not that important anymore since distribution of build output is just for convenience
@@ -81,8 +85,8 @@ Traceability means you can always find the version of code for any artifact/rele
 
 ### Keep track of all moving parts
 
-- Commit SHA ➡ Build artifacts
-- 🎈 Fun! 🎈
+> - Commit SHA ➡ Build artifacts
+> - 🎈 Fun! 🎈
 
 ::: notes
 It's fun, especially with multiple parts as will see
@@ -90,7 +94,7 @@ It's fun, especially with multiple parts as will see
 
 ## Multiple moving parts
 
-![](images/pipeline.png)
+![New feature, build 46](images/pipeline.png)
 
 ::: notes
 
@@ -110,3 +114,65 @@ Release:
 - Release them
 
 :::
+
+### Git history
+
+![](images/git_history.png)
+
+## Challenges
+
+1. Where to store it
+2. How to store/retrieve it
+
+## 1. Where to store it
+
+> - In Git
+> - ...but not in commits
+> - Git tags?
+> - Git notes!
+
+![](images/git_history.png){width=60%}
+
+::: notes
+
+- Using versionInfo.json is a very silly idea
+- Since one end of the link is a git commit, storing in git makes a lot of sense
+- A commit would be horrible; it pollutes the history and doesn't even work
+- Tags have 2 drawbacks: Explosion of tags and doesn't support concurrent use
+- Git notes are perfect!
+
+:::
+
+### Git notes
+
+<sub><sup>_Supplement a commit message without changing the commit itself_</sup></sub>
+
+- <span style="color:Moccasin">`git notes add|remove|show|list`</span>
+- Stored as commits in refs/notes/
+
+## 2. How to store/retrieve it
+
+- Store key/values in a note
+- List key/values for a commit
+
+### Gino Keva
+
+:::{.element: class="fragment" data-fragment-index="1"}
+A simple Git Notes Key Value store
+:::
+
+:::{.element: class="fragment" data-fragment-index="2"}
+[https://github.com/philips-software/gino-keva](https://github.com/philips-software/gino-keva)
+:::
+:::{.element: class="fragment" data-fragment-index="3"}
+![](images/wyarde.jpg)
+![](images/your_face.jpg)
+:::
+
+::: notes
+
+Awesome open-source tool
+
+:::
+
+# Demo
