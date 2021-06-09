@@ -7,6 +7,11 @@ url-gh: https://github.com/wyarde
 url-gino-keva: https://github.com/philips-software/gino-keva
 url-demo: https://github.com/wyarde/talk-store-build-metadata-in-git/tree/demo
 url-talk: https://wyarde.github.io/talk-store-build-metadata-in-git
+major-minor-patch: <span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span>
+build-metadata: <span style="color:DodgerBlue">BUILD_METADATA</span>
+arrow-both: <span style="color:Orange;font-size:125%">⇄</span>
+arrow-left: <span style="color:Orange;font-size:125%">⇇</span>
+arrow-right: <span style="color:Orange;font-size:125%">⇉</span>
 ---
 
 ## $pagetitle$
@@ -15,7 +20,7 @@ url-talk: https://wyarde.github.io/talk-store-build-metadata-in-git
 
 |  ![](images/wyarde.jpg){width=40%}  |
 | :---------------------------------: |
-|        [$url-gh$]($url-gh$)         |
+|             <$url-gh$>              |
 |           Devops Engineer           |
 |       Cardiology Informatics        |
 | ![](images/philips.png){width=50px} |
@@ -47,32 +52,41 @@ Artifacts could be:
 
 ## Semantic Versioning 2.0.0
 
-\
-<span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span>-<span style="color:DodgerBlue">BUILD_METADATA</span>\
 <sub><sup>https://semver.org</sup></sub>
 
-### <span style="color:MediumSeaGreen">MAJOR.MINOR.PATCH</span>
+<style>
+.container{ display: grid; grid-auto-flow: column; }
+.col{ font-size: 80%; }
+</style>
+
+::: {.container}
+:::: {.col .element: class="fragment" data-fragment-index="1"}
+
+$major-minor-patch$
 
 - Describes public API
 - Incremented manually
-- Relatively static
+- Incremented manually
+
+::::
+:::: {.col .element: class="fragment" data-fragment-index="2"}
+
+$build-metadata$
+
+- Links artifacts to commits
+- Determined by the system
+- Changes all the time
+
+::::
+:::
 
 ::: notes
 
 - External
 - Stored in
+
   - versionInfo.json (old school)
   - Git tag
-
-:::
-
-### <span style="color:DodgerBlue">BUILD_METADATA</span>
-
-- Links artifacts to commits
-- Determined by build system
-- Changes all the time
-
-::: notes
 
 - Internal
 
@@ -81,11 +95,11 @@ Artifacts could be:
 ## Why link artifacts to commits?
 
 \
-Build artifact ↔ Commit SHA
+commit $arrow-both$ artifacts
 
 ### For traceability
 
-> - Build artifact ➡ Commit SHA
+> - commit $arrow-left$ artifacts
 > - 💤 Boring 💤
 
 ::: notes
@@ -94,7 +108,7 @@ Traceability means you can always find the version of code for any artifact/rele
 
 ### Keep track of all moving parts
 
-> - Commit SHA ➡ Build artifacts
+> - commit $arrow-right$ artifacts
 > - 🎈 Fun! 🎈
 
 ::: notes
@@ -161,19 +175,23 @@ Release:
 
 ## 2. How to store/retrieve it
 
+Gino Keva:
+
 - Store key/values in a note
 - List key/values for a commit
 
-### Gino Keva
+## Demo
+
+[![](images/pipeline.png)]($url-demo$)
+
+## Gino Keva
+
+A simple Git Notes Key Value store
 
 :::{.element: class="fragment" data-fragment-index="1"}
-A simple Git Notes Key Value store
+<$url-gino-keva$>
 :::
-
 :::{.element: class="fragment" data-fragment-index="2"}
-[$url-gino-keva$]($url-gino-keva$)
-:::
-:::{.element: class="fragment" data-fragment-index="3"}
 ![](images/wyarde.jpg)
 ![](images/your_face.jpg)
 :::
@@ -183,10 +201,6 @@ A simple Git Notes Key Value store
 Awesome open-source tool
 
 :::
-
-# Demo
-
-![](images/pipeline.png)
 
 # End
 
