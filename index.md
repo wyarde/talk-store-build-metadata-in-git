@@ -3,6 +3,7 @@ author-meta:
   - Wesley Yarde
 date-meta: June 10, 2021
 pagetitle: How (not) to store build metadata in Git
+url-gh: https://github.com/wyarde
 url-gino-keva: https://github.com/philips-software/gino-keva
 url-demo: https://github.com/wyarde/talk-store-build-metadata-in-git/tree/demo
 url-talk: https://wyarde.github.io/talk-store-build-metadata-in-git
@@ -10,9 +11,14 @@ url-talk: https://wyarde.github.io/talk-store-build-metadata-in-git
 
 ## $pagetitle$
 
-$author-meta$
-\
-$date-meta$
+## $author-meta$
+
+|  ![](images/wyarde.jpg){width=40%}  |
+| :---------------------------------: |
+|        [$url-gh$]($url-gh$)         |
+|           Devops Engineer           |
+|       Cardiology Informatics        |
+| ![](images/philips.png){width=50px} |
 
 ## Disclaimers
 
@@ -165,7 +171,7 @@ A simple Git Notes Key Value store
 :::
 
 :::{.element: class="fragment" data-fragment-index="2"}
-[github.com/philips-software/gino-keva](https://github.com/philips-software/gino-keva)
+[$url-gino-keva$]($url-gino-keva$)
 :::
 :::{.element: class="fragment" data-fragment-index="3"}
 ![](images/wyarde.jpg)
