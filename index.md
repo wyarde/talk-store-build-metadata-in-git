@@ -42,8 +42,8 @@ It identies a build and the artifacts it generates.
 \
 Artifacts could be:
 
-- containers
-- packages
+- Containers
+- Packages
 
 ## Semantic Versioning 2.0.0
 
