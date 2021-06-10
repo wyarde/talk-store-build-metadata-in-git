@@ -16,6 +16,10 @@ arrow-right: <span style="color:Orange;font-size:125%">⇉</span>
 
 ## $pagetitle$
 
+\
+TheDevConf\
+$date-meta$\
+
 ## $author-meta$
 
 |  ![](images/wyarde.jpg){width=40%}  |
