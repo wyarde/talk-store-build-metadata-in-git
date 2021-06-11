@@ -70,7 +70,7 @@ $major-minor-patch$
 
 - Describes public API
 - Incremented manually
-- Incremented manually
+- Relatively static
 
 ::::
 :::: {.col .element: class="fragment" data-fragment-index="2"}
