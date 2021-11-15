@@ -9,11 +9,7 @@ jobs:
     name: Determine changes
     runs-on: ubuntu-latest
     outputs:
-      build_1: ${{ steps.filter.outputs.build_1 }}
-      build_2: ${{ steps.filter.outputs.build_2 }}
-      build_3: ${{ steps.filter.outputs.build_3 }}
-      build_4: ${{ steps.filter.outputs.build_4 }}
-      build_5: ${{ steps.filter.outputs.build_5 }}
+      componentIDs: ${{ steps.filter.outputs.changes }}
     steps:
       - uses: actions/checkout@v2
 
@@ -22,22 +18,17 @@ jobs:
         with:
           base: ${{ github.ref }}
           filters: |
-            build_1:
-              - 'components/1/**'
-            build_2:
-              - 'components/2/**'
-            build_3:
-              - 'components/3/**'
-            build_4:
-              - 'components/4/**'
-            build_5:
-              - 'components/5/**'
+            1: 'components/1/**'
+            2: 'components/2/**'
+            3: 'components/3/**'
+            4: 'components/4/**'
+            5: 'components/5/**'
 
-  build_1:
-    name: Build 1
+  build:
     needs: changes
-    if: ${{ needs.changes.outputs.build_1 == 'true' }}
-    env: { id: 1 }
+    strategy:
+      matrix:
+        componentID: ${{ fromJSON(needs.changes.outputs.componentIDs) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -53,150 +44,20 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: components/${{ env.id }}
+          context: components/${{ matrix.componentID }}
           build-args: VERSION=${{ github.run_number }}
-          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_number }}
+          tags: ghcr.io/wyarde/demo-gino-keva-${{ matrix.componentID }}:${{ github.run_number }}
           push: true
 
       - name: Persist metadata
         uses: wyarde/gino-keva-set-action@main
         with:
-          key: COMPONENT_${{ env.id }}
-          value: ${{ github.run_number }}
-
-  build_2:
-    name: Build 2
-    needs: changes
-    if: ${{ needs.changes.outputs.build_2 == 'true' }}
-    env: { id: 2 }
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: components/${{ env.id }}
-          build-args: VERSION=${{ github.run_number }}
-          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_number }}
-          push: true
-
-      - name: Persist metadata
-        uses: wyarde/gino-keva-set-action@main
-        with:
-          key: COMPONENT_${{ env.id }}
-          value: ${{ github.run_number }}
-
-  build_3:
-    name: Build 3
-    needs: changes
-    if: ${{ needs.changes.outputs.build_3 == 'true' }}
-    env: { id: 3 }
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: components/${{ env.id }}
-          build-args: VERSION=${{ github.run_number }}
-          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_number }}
-          push: true
-
-      - name: Persist metadata
-        uses: wyarde/gino-keva-set-action@main
-        with:
-          key: COMPONENT_${{ env.id }}
-          value: ${{ github.run_number }}
-
-  build_4:
-    name: Build 4
-    needs: changes
-    if: ${{ needs.changes.outputs.build_4 == 'true' }}
-    env: { id: 4 }
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: components/${{ env.id }}
-          build-args: VERSION=${{ github.run_number }}
-          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_number }}
-          push: true
-
-      - name: Persist metadata
-        uses: wyarde/gino-keva-set-action@main
-        with:
-          key: COMPONENT_${{ env.id }}
-          value: ${{ github.run_number }}
-
-  build_5:
-    name: Build 5
-    needs: changes
-    if: ${{ needs.changes.outputs.build_5 == 'true' }}
-    env: { id: 5 }
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with: { fetch-depth: 50 } # Some history is required to enable search for most recent git note
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: components/${{ env.id }}
-          build-args: VERSION=${{ github.run_number }}
-          tags: ghcr.io/wyarde/demo-gino-keva-${{ env.id }}:${{ github.run_number }}
-          push: true
-
-      - name: Persist metadata
-        uses: wyarde/gino-keva-set-action@main
-        with:
-          key: COMPONENT_${{ env.id }}
+          key: COMPONENT_${{ matrix.componentID }}
           value: ${{ github.run_number }}
 
   release:
     name: Release
-    if: always() # We don't want this job to require all "needs" to run. It will still wait for them if they do.
-    needs:
-      - build_1
-      - build_2
-      - build_3
-      - build_4
-      - build_5
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -208,38 +69,25 @@ jobs:
 
       - id: component_1
         run: docker run --rm ghcr.io/wyarde/demo-gino-keva-1:${{ steps.versions.outputs.COMPONENT_1 }}
-
       - id: component_2
         run: docker run --rm ghcr.io/wyarde/demo-gino-keva-2:${{ steps.versions.outputs.COMPONENT_2 }}
-
       - id: component_3
         run: docker run --rm ghcr.io/wyarde/demo-gino-keva-3:${{ steps.versions.outputs.COMPONENT_3 }}
-
       - id: component_4
         run: docker run --rm ghcr.io/wyarde/demo-gino-keva-4:${{ steps.versions.outputs.COMPONENT_4 }}
-
       - id: component_5
         run: docker run --rm ghcr.io/wyarde/demo-gino-keva-5:${{ steps.versions.outputs.COMPONENT_5 }}
 
       - name: Create release
-        uses: softprops/action-gh-release@9729932bfb75c05ad1f6e3a729294e05abaa7001 # master (08-Jun-2021). Required for target_commitish to be available.
+        uses: softprops/action-gh-release@v0.1.14
         with:
           tag_name: ${{ github.run_number }}
           target_commitish: ${{ github.ref }}
           body: |
-            Output component 1:
-            ${{ steps.component_1.outputs.response }}
-
-            Output component 2:
-            ${{ steps.component_2.outputs.response }}
-
-            Output component 3:
-            ${{ steps.component_3.outputs.response }}
-
-            Output component 4:
-            ${{ steps.component_4.outputs.response }}
-
-            Output component 5:
-            ${{ steps.component_5.outputs.response }}
+            Output component 1: ${{ steps.component_1.outputs.response }}
+            Output component 2: ${{ steps.component_2.outputs.response }}
+            Output component 3: ${{ steps.component_3.outputs.response }}
+            Output component 4: ${{ steps.component_4.outputs.response }}
+            Output component 5: ${{ steps.component_5.outputs.response }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
