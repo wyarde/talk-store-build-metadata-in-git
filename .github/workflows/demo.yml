@@ -26,6 +26,7 @@ jobs:
 
   build:
     needs: changes
+    if: ${{ fromJSON(needs.changes.outputs.componentIDs).include[0] }}
     strategy:
       matrix:
         componentID: ${{ fromJSON(needs.changes.outputs.componentIDs) }}
