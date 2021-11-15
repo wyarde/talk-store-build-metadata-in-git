@@ -16,7 +16,6 @@ jobs:
       - uses: dorny/paths-filter@v2
         id: filter
         with:
-          base: ${{ github.ref }}
           filters: |
             1: 'components/1/**'
             2: 'components/2/**'
@@ -26,7 +25,7 @@ jobs:
 
   build:
     needs: changes
-    if: ${{ fromJSON(needs.changes.outputs.componentIDs).include[0] }}
+    if: ${{ fromJSON(needs.changes.outputs.componentIDs).include[0] }} # Skip if no changes
     strategy:
       matrix:
         componentID: ${{ fromJSON(needs.changes.outputs.componentIDs) }}
