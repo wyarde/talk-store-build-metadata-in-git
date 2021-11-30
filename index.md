@@ -263,17 +263,17 @@ Gino Keva - A simple Git Notes Key Value store
 # End
 
 ::: {.container}
-:::: {.col}
+:::: {}
 This talk \
 [![](images/qr_talk.png)]($url-talk$)
 ::::
 
-:::: {.col}
+:::: {}
 Demo \
 [![](images/qr_demo.png)]($url-demo$)
 ::::
 
-:::: {.col}
+:::: {}
 Gino Keva \
 [![](images/qr_gino-keva.png)]($url-gino-keva$)
 ::::
