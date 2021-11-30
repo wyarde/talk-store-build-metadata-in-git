@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Wesley Yarde">
-  <meta name="dcterms.date" content="June 10, 2021">
+  <meta name="dcterms.date" content="November 30, 2021">
   <title>How (not) to store build metadata in Git</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -27,12 +27,41 @@
     <div class="slides">
 
 
-<section id="how-not-to-store-build-metadata-in-git" class="title-slide slide level2">
-<h2>How (not) to store build metadata in Git</h2>
+<section id="how-not-to-store-build-metadata-in-git" class="title-slide slide level2" data-background-image="images/devopscon.jpg" data-background-size="contain">
+<h2 data-background-image="images/devopscon.jpg" data-background-size="contain"><br/> <br/> <br/> How (not) to store build metadata in Git</h2>
 <p><br />
-TheDevConf<br />
-June 10, 2021<br />
-</p>
+DevOpsCon <del>Munich</del> Online<br />
+November 30, 2021</p>
+</section>
+
+<section id="what-is-build-metadata" class="title-slide slide level2">
+<h2>What is build metadata</h2>
+<div class="element: fragment" data-fragment-index="1">
+<p>Build metadata is fancy for build ID.</p>
+</div>
+<div class="element: fragment" data-fragment-index="2">
+<p>It identies a build and the artifacts it generates.</p>
+</div>
+<aside class="notes">
+<p>Artifacts could be:</p>
+<ul>
+<li>Container</li>
+<li>Package</li>
+</ul>
+</aside>
+</section>
+
+<section id="spoiler" class="title-slide slide level2">
+<h2>Spoiler</h2>
+<p><img data-src="images/pipeline.png" /></p>
+<aside class="notes">
+<ul>
+<li>How to store</li>
+<li>How to use build metadata to create a component-based CI/CD pipeline</li>
+<li>Components are built independent, each with their own artifact</li>
+<li>Only rebuild what has changed</li>
+</ul>
+</aside>
 </section>
 
 <section id="wesley-yarde" class="title-slide slide level2">
@@ -48,12 +77,9 @@ June 10, 2021<br />
 <td style="text-align: center;"><a href="https://github.com/wyarde" class="uri">https://github.com/wyarde</a></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">Devops Engineer</td>
+<td style="text-align: center;">Senior Devops Engineer</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">Cardiology Informatics</td>
-</tr>
-<tr class="even">
 <td style="text-align: center;"><img data-src="images/philips.png" width="50" /></td>
 </tr>
 </tbody>
@@ -68,34 +94,31 @@ June 10, 2021<br />
 <section id="this-talk" class="slide level3">
 <h3>This talk</h3>
 <ul>
-<li>is opinionated</li>
-<li>includes a live demo</li>
+<li class="fragment">Uses fancy words</li>
+<li class="fragment">is opinionated</li>
+<li class="fragment">includes a live demo</li>
 </ul>
+<aside class="notes">
+<ul>
+<li>Uses fancy words to make up for my lack of confidence</li>
+<li>State my opinion as facts. I believe it will trigger more reaction/thinking</li>
+</ul>
+</aside>
 </section>
 <section id="you-need-a-basic-understanding-of" class="slide level3">
 <h3>You need a basic understanding of</h3>
 <ul>
-<li class="fragment">Git</li>
-<li class="fragment">Containers</li>
-<li class="fragment">Build pipelines</li>
-<li class="fragment">(my) Humour</li>
-</ul>
-</section></section>
-<section id="what-is-build-metadata" class="title-slide slide level2">
-<h2>What is build metadata</h2>
-<p>Build metadata is fancy for build ID.<br />
-It identies a build and the artifacts it generates.<br />
-<br />
-Artifacts could be:</p>
-<ul>
+<li>Git</li>
 <li>Containers</li>
-<li>Packages</li>
+<li>Build pipelines</li>
+<li>(my) Humour</li>
 </ul>
 </section>
-
-<section id="semantic-versioning-2.0.0" class="title-slide slide level2">
-<h2>Semantic Versioning 2.0.0</h2>
-<p><sub><sup>https://semver.org</sup></sub></p>
+<section id="in-life" class="slide level3">
+<h3>… in life!</h3>
+</section></section>
+<section id="versioning" class="title-slide slide level2">
+<h2>Versioning</h2>
 <style>
 .container{ display: grid; grid-auto-flow: column; }
 .col{ font-size: 80%; }
@@ -106,11 +129,11 @@ Artifacts could be:</p>
 <ul>
 <li>Describes public API</li>
 <li>Incremented manually</li>
-<li>Incremented manually</li>
+<li>Relatively static</li>
 </ul>
 </div>
 <div class="col element: fragment" data-fragment-index="2">
-<p><span style="color:DodgerBlue">BUILD_METADATA</span></p>
+<p><span style="color:DodgerBlue">BUILD METADATA</span></p>
 <ul>
 <li>Links artifacts to commits</li>
 <li>Determined by the system</li>
@@ -118,7 +141,13 @@ Artifacts could be:</p>
 </ul>
 </div>
 </div>
+<div class="element: fragment" data-fragment-index="3">
+<p><br />
+<sub><sup>Semantic Versioning 2.0.0 - https://semver.org</sup></sub></p>
+</div>
 <aside class="notes">
+<p>Versioning of Artifacts:</p>
+<p>Major.minor.patch:</p>
 <ul>
 <li><p>External</p></li>
 <li><p>Stored in</p>
@@ -126,7 +155,11 @@ Artifacts could be:</p>
 <li>versionInfo.json (old school)</li>
 <li>Git tag</li>
 </ul></li>
-<li><p>Internal</p></li>
+</ul>
+<p>Build metadata:</p>
+<ul>
+<li>Internal</li>
+<li>Where and how to store?</li>
 </ul>
 </aside>
 </section>
@@ -136,6 +169,9 @@ Artifacts could be:</p>
 <h2>Why link artifacts to commits?</h2>
 <p><br />
 commit <span style="color:Orange;font-size:125%">⇄</span> artifacts</p>
+<aside class="notes">
+<p>Two reasons; we’re going to look at arrows in both directions</p>
+</aside>
 </section>
 <section id="for-traceability" class="slide level3">
 <h3>For traceability</h3>
@@ -151,18 +187,22 @@ commit <span style="color:Orange;font-size:125%">⇄</span> artifacts</p>
 <h3>Keep track of all moving parts</h3>
 <ul>
 <li class="fragment">commit <span style="color:Orange;font-size:125%">⇉</span> artifacts</li>
+<li class="fragment">Only build what changed</li>
 <li class="fragment">🎈 Fun! 🎈</li>
 </ul>
 <aside class="notes">
-<p>It’s fun, especially with multiple parts as will see</p>
+<p>Historically, not all that exciting. Every change requires a build anyway. It’s fun, especially with multiple parts as will see</p>
 </aside>
 </section></section>
 <section>
 <section id="multiple-moving-parts" class="title-slide slide level2">
 <h2>Multiple moving parts</h2>
-<figure>
-<img data-src="images/pipeline.png" alt="New feature, build 46" /><figcaption aria-hidden="true">New feature, build 46</figcaption>
-</figure>
+<div class="element: fragment" data-fragment-index="1">
+<p>New feature, build 46</p>
+</div>
+<div class="element: fragment" data-fragment-index="2">
+<p><img data-src="images/pipeline.png" /></p>
+</div>
 <aside class="notes">
 <p>Determine changes:</p>
 <ul>
@@ -181,20 +221,28 @@ commit <span style="color:Orange;font-size:125%">⇄</span> artifacts</p>
 </ul>
 </aside>
 </section>
-<section id="git-history" class="slide level3">
-<h3>Git history</h3>
-<p><img data-src="images/git_history.png" /></p>
+<section id="git-history" class="slide level3" data-transition="slide-in fade-out">
+<h3 data-transition="slide-in fade-out">Git history</h3>
+<p><img data-src="images/git_history_1.png" /></p>
+</section>
+<section id="git-history-1" class="slide level3" data-transition="fade">
+<h3 data-transition="fade">Git history</h3>
+<p><img data-src="images/git_history_2.png" /></p>
+</section>
+<section id="git-history-2" class="slide level3" data-transition="fade">
+<h3 data-transition="fade">Git history</h3>
+<p><img data-src="images/git_history_3.png" /></p>
 </section></section>
 <section>
-<section id="challenges" class="title-slide slide level2">
-<h2>Challenges</h2>
+<section id="lets-do-it" class="title-slide slide level2">
+<h2>Let’s do IT!</h2>
 <ol type="1">
 <li>Where to store it</li>
-<li>How to store/retrieve it</li>
+<li>How to manipulate it</li>
 </ol>
 </section>
-<section id="where-to-store-it" class="slide level3">
-<h3>1. Where to store it</h3>
+<section id="where" class="slide level3">
+<h3>1. Where?</h3>
 <ul>
 <li class="fragment">In Git</li>
 <li class="fragment">…but not in commits</li>
@@ -204,7 +252,7 @@ commit <span style="color:Orange;font-size:125%">⇄</span> artifacts</p>
 <p><img data-src="images/git_history.png" style="width:60.0%" /></p>
 <aside class="notes">
 <ul>
-<li>Using versionInfo.json is a very silly idea</li>
+<li>Using versionInfo.json here is a very silly idea</li>
 <li>Since one end of the link is a git commit, storing in git makes a lot of sense</li>
 <li>A commit would be horrible; it pollutes the history and doesn’t even work</li>
 <li>Tags have 2 drawbacks: Explosion of tags and doesn’t support concurrent use</li>
@@ -220,31 +268,23 @@ commit <span style="color:Orange;font-size:125%">⇄</span> artifacts</p>
 <li>Stored as commits in refs/notes/</li>
 </ul>
 </section>
-<section id="how-to-storeretrieve-it" class="slide level3">
-<h3>2. How to store/retrieve it</h3>
-<p>Gino Keva:</p>
+<section id="how" class="slide level3">
+<h3>2. How?</h3>
+<p>Gino Keva - A simple Git Notes Key Value store <a href="https://github.com/philips-software/gino-keva" class="uri">https://github.com/philips-software/gino-keva</a></p>
 <ul>
-<li>Store key/values in a note</li>
-<li>List key/values for a commit</li>
+<li class="fragment">Store key/values in a note</li>
+<li class="fragment">List key/values for a commit</li>
 </ul>
+<aside class="notes">
+<ul>
+<li>Implemented using event sourcing pattern</li>
+<li>Create materialized view with all events</li>
+</ul>
+</aside>
 </section></section>
 <section id="demo" class="title-slide slide level2">
 <h2>Demo</h2>
 <p><a href="https://github.com/wyarde/talk-store-build-metadata-in-git/tree/demo"><img data-src="images/pipeline.png" /></a></p>
-</section>
-
-<section id="gino-keva" class="title-slide slide level2">
-<h2>Gino Keva</h2>
-<p>A simple Git Notes Key Value store</p>
-<div class="element: fragment" data-fragment-index="1">
-<p><a href="https://github.com/philips-software/gino-keva" class="uri">https://github.com/philips-software/gino-keva</a></p>
-</div>
-<div class="element: fragment" data-fragment-index="2">
-<p><img data-src="images/wyarde.jpg" /> <img data-src="images/your_face.jpg" /></p>
-</div>
-<aside class="notes">
-<p>Awesome open-source tool</p>
-</aside>
 </section>
 
 <section id="end" class="title-slide slide level1">
@@ -252,16 +292,16 @@ commit <span style="color:Orange;font-size:125%">⇄</span> artifacts</p>
 <table>
 <thead>
 <tr class="header">
-<th style="text-align: center;">Gino Keva</th>
-<th style="text-align: center;">Demo</th>
 <th style="text-align: center;">This talk</th>
+<th style="text-align: center;">Demo</th>
+<th style="text-align: center;">Gino Keva</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><a href="https://github.com/philips-software/gino-keva"><img data-src="images/qr_gino-keva.png" /></a></td>
-<td style="text-align: center;"><a href="https://github.com/wyarde/talk-store-build-metadata-in-git/tree/demo"><img data-src="images/qr_demo.png" /></a></td>
 <td style="text-align: center;"><a href="https://wyarde.github.io/talk-store-build-metadata-in-git"><img data-src="images/qr_talk.png" /></a></td>
+<td style="text-align: center;"><a href="https://github.com/wyarde/talk-store-build-metadata-in-git/tree/demo"><img data-src="images/qr_demo.png" /></a></td>
+<td style="text-align: center;"><a href="https://github.com/philips-software/gino-keva"><img data-src="images/qr_gino-keva.png" /></a></td>
 </tr>
 </tbody>
 </table>
