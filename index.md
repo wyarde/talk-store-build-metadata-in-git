@@ -68,8 +68,8 @@ Artifacts could be:
 ### This talk
 
 > - Uses fancy words
-> - is opinionated
-> - includes a live demo
+> - Is opinionated
+> - Includes a live demo
 
 ::: notes
 
@@ -222,7 +222,7 @@ Release:
 > - Git tags?
 > - Git notes!
 
-![](images/git_history.png){width=60%}
+![](images/git_history_3.png){width=60%}
 
 ::: notes
 
