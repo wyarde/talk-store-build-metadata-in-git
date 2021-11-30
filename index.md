@@ -57,11 +57,11 @@ Artifacts could be:
 :::
 ## $author-meta$
 
-|  ![](images/wyarde.jpg){width=40%}  |
-| :---------------------------------: |
-|             <$url-gh$>              |
-|       Senior Devops Engineer        |
-| ![](images/philips.png){width=50px} |
+![](images/wyarde.jpg){width=20%} <br/>
+<$url-gh$>
+\
+Senior Devops Engineer <br/>
+![](images/philips.png){width=50px}
 
 ## Disclaimers
 
@@ -262,6 +262,19 @@ Gino Keva - A simple Git Notes Key Value store
 
 # End
 
-|               This talk               |                 Demo                  |                    Gino Keva                    |
-| :-----------------------------------: | :-----------------------------------: | :---------------------------------------------: |
-| [![](images/qr_talk.png)]($url-talk$) | [![](images/qr_demo.png)]($url-demo$) | [![](images/qr_gino-keva.png)]($url-gino-keva$) |
+::: {.container}
+:::: {.col}
+This talk \
+[![](images/qr_talk.png)]($url-talk$)
+::::
+
+:::: {.col}
+Demo \
+[![](images/qr_demo.png)]($url-demo$)
+::::
+
+:::: {.col}
+Gino Keva \
+[![](images/qr_gino-keva.png)]($url-gino-keva$)
+::::
+:::
